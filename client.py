@@ -43,6 +43,9 @@ font_main = font.Font(None, 36)
 # --- ЗОБРАЖЕННЯ ----
 
 # --- ЗВУКИ ---
+mixer.init()
+wall_hit = mixer.Sound("ping_pong_8bit_plop.ogg")
+platform_hit = mixer.Sound("ping_pong_8bit_beeep.ogg")
 
 # --- ГРА ---
 game_over = False
@@ -98,10 +101,12 @@ while True:
         if game_state['sound_event']:
             if game_state['sound_event'] == 'wall_hit':
                 # звук відбиття м'ячика від стін
-                pass
+                wall_hit.play()
+
             if game_state['sound_event'] == 'platform_hit':
                 # звук відбиття м'ячика від платформи
-                pass
+                platform_hit.play()
+                
 
     else:
         wating_text = font_main.render(f"Очікування гравців...", True, (255, 255, 255))
