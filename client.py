@@ -2,13 +2,17 @@ from pygame import *
 import socket
 import json
 from threading import Thread
-
-# ---ПУГАМЕ НАЛАШТУВАННЯ ---
+from menu import show_menu
+# ---
+# ---PYGAME НАЛАШТУВАННЯ ---
 WIDTH, HEIGHT = 800, 600
 init()
 screen = display.set_mode((WIDTH, HEIGHT))
 clock = time.Clock()
-display.set_caption("Пінг-Понг")
+display.set_caption("Ping Pong")
+# Встановлення іконки вікна
+icon = image.load("assets/pics/pix_dog.png")
+display.set_icon(icon)
 # ---СЕРВЕР ---
 def connect_to_server():
     while True:
@@ -44,10 +48,12 @@ font_main = font.Font(None, 36)
 
 # --- ЗВУКИ ---
 mixer.init()
-wall_hit = mixer.Sound("ping_pong_8bit_plop.ogg")
-platform_hit = mixer.Sound("ping_pong_8bit_beeep.ogg")
+wall_hit = mixer.Sound("assets/sounds/ping_pong_8bit_plop.ogg")
+platform_hit = mixer.Sound("assets/sounds/ping_pong_8bit_beeep.ogg")
 
 # --- ГРА ---
+if not show_menu(screen, WIDTH, HEIGHT, clock, font_win, font_main):
+    exit()
 game_over = False
 winner = None
 you_winner = None
@@ -120,3 +126,4 @@ while True:
         client.send(b"UP")
     elif keys[K_s]:
         client.send(b"DOWN")
+        
